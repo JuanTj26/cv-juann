@@ -1,26 +1,42 @@
 export const resume = {
   name: 'Juan Torales',
-  title: 'Full Stack Developer',
-  photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop', 
+  title: 'Desarrollador Multiplataforma',
+  photo: '/img/Juan.jpg',
   location: 'Nezahualcóyotl, México',
   contact: [
-    {label: 'Email', value: 'juanitotj001@gmail.com', href: 'mailto:juanitotj001@gmail.com'},
-    {label: 'Teléfono', value: '5624190385', href: 'tel:5624190385'},
-    {label: 'GitHub', value: 'github.com/juant', href: 'https://github.com'},
-    {label: 'LinkedIn', value: 'linkedin.com/in/juant', href: 'https://linkedin.com'}
+    { label: 'Email', value: 'juanitotj001@gmail.com', href: 'mailto:juanitotj001@gmail.com' },
+    { label: 'Teléfono', value: '5624190385', href: 'tel:5624190385' },
+    { label: 'GitHub', value: 'github.com/juant', href: 'https://github.com' },
+    { label: 'LinkedIn', value: 'linkedin.com/in/juant', href: 'https://linkedin.com' }
   ],
-  skills: [
-    {name: 'Angular', level: 90},
-    {name: 'TypeScript', level: 90},
-    {name: 'Java', level: 85},
-    {name: 'Spring Boot', level: 85},
-    {name: 'SQL / MySQL', level: 80},
-    {name: 'HTML & CSS', level: 95},
-    {name: 'Git', level: 85},
-    {name: 'APIs REST', level: 90}
+  // Grouped skills for clearer UI
+  skillsAdvanced: [
+    { name: 'HTML5 - Estructuración', level: 70 },
+    { name: 'CSS3 - Estilos', level: 70 },
+    { name: 'Java - Backend', level: 70 },
+    { name: 'Spring Boot - Framework', level: 65 },
+    { name: 'Angular - Frontend', level: 65 },
+    { name: 'TypeScript - Tipado', level: 65 }
+  ],
+  skillsIntermediate: [
+    { name: 'PHP - Backend', level: 50 },
+    { name: 'APIs - Integración', level: 50 },
+    { name: 'JavaScript - Dinamismo', level: 50 }
+  ],
+  skillsBasic: [
+    { name: 'MongoDB - NoSQL', level: 30 },
+    { name: 'MySQL - Consultas', level: 30 },
+    { name: 'Arduino - IoT', level: 30 },
+    { name: 'ESP-32 - Embebidos', level: 30 }
+  ],
+  languages: [
+    { name: 'Español', level: 'Nativo' },
+    { name: 'Inglés', level: 'Técnico / Intermedio (B1)' }
   ],
   softSkills: ['Comunicación efectiva', 'Análisis de requerimientos', 'Resolución de problemas', 'Trabajo en equipo', 'Adaptabilidad'],
-  summary: 'Desarrollador Full Stack con experiencia sólida en la construcción de plataformas analíticas y sistemas de gestión financiera. Especializado en stack moderno (Angular + Spring Boot) para crear soluciones robustas, desde dashboards interactivos hasta módulos de conciliación automatizados. Apasionado por la eficiencia, la calidad de código y la experiencia de usuario.',
+  // Short intro + longer about
+  headline: 'Creo soluciones digitales que fusionan creatividad y tecnología.',
+  summary: 'Soy un aspirante a programador junior en desarrollo web, comprometido con aprender y crear aplicaciones intuitivas y funcionales. Tengo conocimientos en desarrollo back-end y front-end, y busco contribuir en proyectos variados para ser versátil y eficaz en mi desarrollo laboral.',
   experience: [
     {
       role: 'Full Stack Developer',
@@ -56,18 +72,27 @@ export const resume = {
   ],
   projects: [
     {
-      title: 'Plataforma Analítica CIMA',
-      desc: 'Sistema integral para visualización financiera con dashboards interactivos y reportes automatizados.',
+      title: 'Sistema Domótico de Riego Automatizado (IoT)',
+      desc: 'Aporté en el desarrollo de una aplicación web para IoT enfocada en la automatización de riego y monitoreo ambiental.',
+      tags: ['HTML', 'CSS', 'PHP', 'JS', 'XAMPP', 'Arduino', 'ESP-32', 'MySQL'],
       href: '#'
     },
     {
-      title: 'Sistema de Conciliación Fin.',
-      desc: 'Automatización de cotejo de datos financieros masivos y generación de reportes contables.',
+      title: 'App Zoológico Parque del Pueblo',
+      desc: 'Aporté en la creación de una aplicación web para la gestión incremental de un zoológico, optimizando procesos operativos y mejorando la usabilidad.',
+      tags: ['HTML', 'CSS', 'PHP', 'JS', 'XAMPP', 'MySQL'],
       href: '#'
     },
     {
-      title: 'Portal de Becas GECDMX',
-      desc: 'Plataforma para gestión de solicitudes y apoyos educativos con flujos de aprobación seguros.',
+      title: 'Gestión de Huerto Móvil',
+      desc: 'Desarrollo de una aplicación web para la organización de un huerto móvil personal.',
+      tags: ['HTML', 'CSS', 'PHP', 'JS', 'XAMPP', 'MySQL', 'OpenIA', 'APIs'],
+      href: '#'
+    },
+    {
+      title: 'Gestión de Zonas Arqueológicas',
+      desc: 'Colaboré en el desarrollo de una aplicación web innovadora para la gestión de zonas arqueológicas, implementando 3 APIs para enriquecer la funcionalidad.',
+      tags: ['HTML', 'CSS', 'PHP', 'JS', 'XAMPP', 'APIs', 'MySQL'],
       href: '#'
     }
   ],
