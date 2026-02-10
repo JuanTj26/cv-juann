@@ -1,7 +1,9 @@
+import juanImg from './img/Juan.jpg'
+
 export const resume = {
   name: 'Juan Torales',
   title: 'Desarrollador Multiplataforma',
-  photo: '/img/Juan.jpg',
+  photo: juanImg,
   location: 'México',
   contact: [
     { label: 'Email', value: 'juanitotj001@gmail.com', href: 'mailto:juanitotj001@gmail.com' },
