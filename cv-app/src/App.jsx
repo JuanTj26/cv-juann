@@ -222,7 +222,7 @@ export default function App() {
 
   const toggleTheme = useCallback(() => {
     setLight(l => !l)
-    toast(light ? '🌙 Modo oscuro' : '☀️ Modo claro', { duration: 1500 })
+    toast(light ? 'Modo oscuro' : 'Modo claro', { duration: 1500 })
   }, [light])
 
   const copyToClipboard = (text, label) => {
@@ -277,12 +277,6 @@ export default function App() {
             <li><a href="#education">Educación</a></li>
           </ul>
           <div className="nav-actions controls">
-            <button className="control-btn accent" onClick={downloadPDF} title="PDF (P)">
-              <Download size={14} /><span>PDF</span>
-            </button>
-            <button className="control-btn" onClick={downloadJSON} title="JSON">
-              <FileJson size={14} />
-            </button>
             <button className="control-btn" onClick={toggleTheme} title="Tema (T)">
               {light ? <Moon size={14} /> : <Sun size={14} />}
             </button>
@@ -382,7 +376,7 @@ export default function App() {
             <h4><Code2 size={13} /> Habilidades Técnicas</h4>
             {resume.skillsAdvanced && (
               <>
-                <h5>🟢 Avanzadas</h5>
+                <h5>Avanzadas</h5>
                 <div className="skills-grid">
                   {resume.skillsAdvanced.map((s, i) => <SkillBar key={`a-${i}`} name={s.name} level={s.level} levelClass="skill-advanced" />)}
                 </div>
@@ -390,7 +384,7 @@ export default function App() {
             )}
             {resume.skillsIntermediate && (
               <>
-                <h5>🟡 Intermedias</h5>
+                <h5>Intermedias</h5>
                 <div className="skills-grid">
                   {resume.skillsIntermediate.map((s, i) => <SkillBar key={`i-${i}`} name={s.name} level={s.level} levelClass="skill-intermediate" />)}
                 </div>
@@ -398,7 +392,7 @@ export default function App() {
             )}
             {resume.skillsBasic && (
               <>
-                <h5>🔵 Básicas</h5>
+                <h5>Básicas</h5>
                 <div className="skills-grid">
                   {resume.skillsBasic.map((s, i) => <SkillBar key={`b-${i}`} name={s.name} level={s.level} levelClass="skill-basic" />)}
                 </div>
@@ -459,7 +453,6 @@ export default function App() {
 
           <footer className="cv-footer">
             <p>© {new Date().getFullYear()} {resume.name}</p>
-            <p className="shortcuts-hint">Atajos: <kbd>T</kbd> tema · <kbd>P</kbd> PDF</p>
           </footer>
         </main>
       </div>
