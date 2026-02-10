@@ -6,8 +6,8 @@ export const resume = {
   contact: [
     { label: 'Email', value: 'juanitotj001@gmail.com', href: 'mailto:juanitotj001@gmail.com' },
     { label: 'Teléfono', value: '5624190385', href: 'tel:5624190385' },
-    { label: 'GitHub', value: 'github.com/juant', href: 'https://github.com' },
-    { label: 'LinkedIn', value: 'linkedin.com/in/juant', href: 'https://linkedin.com' }
+    { label: 'GitHub', value: 'github.com/juant', href: 'https://github.com' }
+    // { label: 'LinkedIn', value: 'linkedin.com/in/juant', href: 'https://linkedin.com' }
   ],
   // Grouped skills for clearer UI
   skillsAdvanced: [
@@ -30,8 +30,7 @@ export const resume = {
     { name: 'ESP-32 - Embebidos', level: 30 }
   ],
   languages: [
-    { name: 'Español', level: 'Nativo' },
-    { name: 'Inglés', level: 'Técnico / Intermedio (B1)' }
+    { name: 'Español', level: 'Nativo' }
   ],
   softSkills: ['Comunicación efectiva', 'Análisis de requerimientos', 'Resolución de problemas', 'Trabajo en equipo', 'Adaptabilidad'],
   // Short intro + longer about
@@ -40,7 +39,7 @@ export const resume = {
   experience: [
     {
       role: 'Full Stack Developer',
-      company: 'Anáhuac Online / RedSoft Group (Confidencial)',
+      company: 'Anáhuac Online / RedSoft Group',
       period: '2025',
       bullets: [
         'Desarrollo de plataforma analítica para visualización y gestión de información financiera.',
@@ -49,8 +48,8 @@ export const resume = {
       ]
     },
     {
-      role: 'Full Stack Developer (Módulos de Conciliación)',
-      company: 'Anáhuac Online / RedSoft Group (Confidencial)',
+      role: 'Full Stack Developer',
+      company: 'Anáhuac Online / RedSoft Group',
       period: '2025',
       bullets: [
         'Implementación y modificación de módulos completos de conciliación financiera.',
@@ -60,9 +59,9 @@ export const resume = {
       ]
     },
     {
-      role: 'Full Stack Developer (Portal de Becas)',
+      role: 'Full Stack Developer',
       company: 'Grupo Educación CDMX / RedSoft Group',
-      period: '2024',
+      period: '2025',
       bullets: [
         'Desarrollo de portal de becas y apoyos educativos.',
         'Construcción de interfaces para solicitudes, seguimiento de estatus y visualización de apoyos (Angular + TypeScript).',
@@ -96,5 +95,5 @@ export const resume = {
       href: '#'
     }
   ],
-  education: 'Técnico Superior Universitario en Desarrollo de Software Multiplataforma — Universidad Tecnológica de Nezahualcóyotl (En curso, 2023 - Actualidad).\nCertificado de Bachillerato — Preparatoria Regina Avalos #267 (2020-2023).'
+  education: 'Técnico Superior Universitario en Desarrollo de Software Multiplataforma (2023-2025). Ingeniería en Desarrollo y Gestión de Software — Universidad Tecnológica de Nezahualcóyotl (En curso, 2026-Actualidad).'
 }
