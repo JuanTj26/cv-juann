@@ -267,8 +267,7 @@ export default function App() {
       >
         <div className="navbar-inner">
           <a href="#" className="nav-brand">
-            <div className="nav-logo">{initials}</div>
-            <div className="nav-brand-text">{resume.name.split(' ')[0]} <span>{resume.name.split(' ').slice(1).join(' ')}</span></div>
+            <div className="nav-brand-text">Portafolio Web:</div>
           </a>
           <ul className="nav-links">
             <li><a href="#about">Sobre mí</a></li>
@@ -427,7 +426,6 @@ export default function App() {
               <TypewriterText text={resume.summary || resume.headline} />
             </p>
             <div className="hero-actions">
-              <button className="btn-primary" onClick={downloadPDF}><Download size={15} /> Descargar CV</button>
               <a className="btn-ghost" href="#experience">Ver experiencia <ChevronDown size={15} /></a>
             </div>
           </AnimatedSection>

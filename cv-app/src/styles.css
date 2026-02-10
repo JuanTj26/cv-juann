@@ -410,18 +410,20 @@ body {
   text-transform: uppercase;
   margin: 12px 0 6px;
   font-weight: 700;
+  color: var(--accent);
 }
 
-.skills-section h5:nth-of-type(1) {
-  color: var(--color-advanced);
+/* Make all technical skills use red tones (metallic / faded) */
+.skill-name {
+  font-size: 0.8rem;
+  color: rgba(239, 68, 68, 0.95);
+  font-weight: 500;
 }
 
-.skills-section h5:nth-of-type(2) {
-  color: var(--color-intermediate);
-}
-
-.skills-section h5:nth-of-type(3) {
-  color: var(--color-basic);
+.skill-level {
+  font-size: 0.7rem;
+  color: rgba(220, 38, 38, 0.85);
+  font-weight: 600;
 }
 
 .skills-grid {
@@ -460,16 +462,11 @@ body {
   border-radius: 99px;
 }
 
-.skill-advanced .bar-fill {
-  background: var(--color-advanced);
-}
-
-.skill-intermediate .bar-fill {
-  background: var(--color-intermediate);
-}
-
+.skill-advanced .bar-fill,
+.skill-intermediate .bar-fill,
 .skill-basic .bar-fill {
-  background: var(--color-basic);
+  background: linear-gradient(90deg, #f97316 0%, #ef4444 55%, #dc2626 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
 }
 
 .badges-container {

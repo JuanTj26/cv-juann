@@ -2,7 +2,7 @@ export const resume = {
   name: 'Juan Torales',
   title: 'Desarrollador Multiplataforma',
   photo: '/img/Juan.jpg',
-  location: 'Nezahualcóyotl, México',
+  location: 'México',
   contact: [
     { label: 'Email', value: 'juanitotj001@gmail.com', href: 'mailto:juanitotj001@gmail.com' },
     { label: 'Teléfono', value: '5624190385', href: 'tel:5624190385' },
