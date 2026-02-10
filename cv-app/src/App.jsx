@@ -1,8 +1,253 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
+import * as THREE from 'three'
 import { resume } from './resume'
 import { motion, useScroll, useSpring, useInView } from 'framer-motion'
 import { Mail, Globe, Linkedin, Github, Moon, Sun, Download, MapPin, Phone, ChevronDown, FileJson, Sparkles, GraduationCap, Briefcase, FolderKanban, Heart, Code2, ExternalLink, User, Languages } from 'lucide-react'
 import { Toaster, toast } from 'sonner'
+
+/* ——— WebGL Splash Overlay (Three.js) ——— */
+function SplashOverlay({ onEnter }) {
+  const [hidden, setHidden] = useState(false)
+  const canvasRef = useRef(null)
+  
+  // Three.js Logic
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    
+    // Check mobile
+    const isMobile = window.innerWidth <= 768
+    
+    // Scene setup
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true })
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+    // Particles
+    const particlesCount = isMobile ? 1500 : 3000
+    const particlesGeometry = new THREE.BufferGeometry()
+    const posArray = new Float32Array(particlesCount * 3)
+    const colorsArray = new Float32Array(particlesCount * 3)
+    const sizesArray = new Float32Array(particlesCount)
+    const opacities = new Float32Array(particlesCount)
+    const velocities = new Float32Array(particlesCount * 3)
+
+    // Red theme colors: Red, Orange-Red, Dark Red
+    const colors = [[1, 0.2, 0.2], [1, 0.4, 0], [0.8, 0, 0]] 
+
+    for (let i = 0; i < particlesCount; i++) {
+        posArray[i * 3] = (Math.random() - 0.5) * 80
+        posArray[i * 3 + 1] = (Math.random() - 0.5) * 80
+        posArray[i * 3 + 2] = (Math.random() - 0.5) * 80
+
+        const color = colors[Math.floor(Math.random() * colors.length)]
+        colorsArray[i * 3] = color[0]
+        colorsArray[i * 3 + 1] = color[1]
+        colorsArray[i * 3 + 2] = color[2]
+
+        sizesArray[i] = Math.random() * 0.15 + 0.05
+        opacities[i] = 0.85
+        velocities[i * 3] = (Math.random() - 0.5) * 0.015
+        velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.015
+        velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.015
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
+    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3))
+    particlesGeometry.setAttribute('size', new THREE.BufferAttribute(sizesArray, 1))
+    particlesGeometry.setAttribute('opacity', new THREE.BufferAttribute(opacities, 1))
+
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.15,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.85,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+    })
+
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial)
+    scene.add(particlesMesh)
+
+    // Mouse interaction
+    let mouseX = 0, mouseY = 0
+    const handleMouseMove = (e) => {
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1
+        mouseY = -(e.clientY / window.innerHeight) * 2 + 1
+    }
+    const handleTouchMove = (e) => {
+        if (e.touches.length > 0) {
+            mouseX = (e.touches[0].clientX / window.innerWidth) * 2 - 1
+            mouseY = -(e.touches[0].clientY / window.innerHeight) * 2 + 1
+        }
+    }
+    
+    if (!isMobile) window.addEventListener('mousemove', handleMouseMove)
+    else window.addEventListener('touchmove', handleTouchMove)
+
+    camera.position.z = 30
+    const clock = new THREE.Clock()
+    let animationId
+    let rushMode = false
+    let rushStartTime = 0
+    
+    // Animation Loop
+    const animateParticles = () => {
+        animationId = requestAnimationFrame(animateParticles)
+        const delta = clock.getDelta()
+        const elapsed = clock.getElapsedTime()
+
+        // Check trigger
+        if (canvas.dataset.triggerRush === 'true' && !rushMode) {
+           rushMode = true
+           rushStartTime = elapsed
+        }
+
+        // Access attributes
+        const positions = particlesGeometry.attributes.position.array
+        const sizes = particlesGeometry.attributes.size.array
+        const opacitiesAttr = particlesGeometry.attributes.opacity.array
+        
+        if (rushMode && (elapsed - rushStartTime < 2.5)) {
+            // RUSH MODE
+            for (let i = 0; i < particlesCount; i++) {
+                velocities[i * 3 + 2] += (Math.random() * 0.15 + 0.6) * delta * 60
+                positions[i * 3 + 2] += velocities[i * 3 + 2] * delta * 8
+                sizes[i] = Math.min(sizes[i] + delta * 1.2, 0.6)
+                
+                if (positions[i * 3 + 2] > 25) {
+                    opacitiesAttr[i] = Math.max(opacitiesAttr[i] - delta * 1.5, 0)
+                }
+                
+                if (positions[i * 3 + 2] > 30) {
+                    positions[i * 3 + 2] = -50
+                    velocities[i * 3 + 2] = 0
+                    sizes[i] = Math.random() * 0.15 + 0.05
+                    opacitiesAttr[i] = 0.85
+                }
+            }
+        } else {
+            // DEFAULT MODE
+            for (let i = 0; i < particlesCount; i++) {
+                positions[i * 3] += velocities[i * 3] * delta * 60
+                positions[i * 3 + 1] += velocities[i * 3 + 1] * delta * 60
+                positions[i * 3 + 2] += velocities[i * 3 + 2] * delta * 60
+
+                const dx = positions[i * 3] - mouseX * 40
+                const dy = positions[i * 3 + 1] - mouseY * 40
+                const distance = Math.sqrt(dx * dx + dy * dy)
+                if (distance < 8) {
+                    velocities[i * 3] -= dx * 0.002 * delta * 60
+                    velocities[i * 3 + 1] -= dy * 0.002 * delta * 60
+                }
+                // Friction
+                velocities[i * 3] *= 0.995
+                velocities[i * 3 + 1] *= 0.995
+                velocities[i * 3 + 2] *= 0.995
+                
+                // Bounds
+                if (Math.abs(positions[i * 3]) > 40) velocities[i * 3] *= -0.8
+                if (Math.abs(positions[i * 3 + 1]) > 40) velocities[i * 3 + 1] *= -0.8
+                if (Math.abs(positions[i * 3 + 2]) > 40) velocities[i * 3 + 2] *= -0.8
+
+                sizes[i] = 0.1 + Math.sin(elapsed * 0.5 + i) * 0.03
+                opacitiesAttr[i] = 0.85
+            }
+        }
+
+        particlesGeometry.attributes.position.needsUpdate = true
+        particlesGeometry.attributes.size.needsUpdate = true
+        particlesGeometry.attributes.opacity.needsUpdate = true
+
+        particlesMesh.rotation.y += 0.0003 * delta * 60
+        renderer.render(scene, camera)
+    }
+
+    animateParticles()
+
+    // Resize
+    const handleResize = () => {
+        camera.aspect = window.innerWidth / window.innerHeight
+        camera.updateProjectionMatrix()
+        renderer.setSize(window.innerWidth, window.innerHeight)
+    }
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+        window.removeEventListener('resize', handleResize)
+        window.removeEventListener('mousemove', handleMouseMove)
+        window.removeEventListener('touchmove', handleTouchMove)
+        cancelAnimationFrame(animationId)
+        renderer.dispose()
+        particlesGeometry.dispose()
+    }
+  }, [])
+
+  const handleEnterClick = () => {
+    setHidden(true)
+    if (canvasRef.current) {
+        // Trigger rush mode in Three.js loop
+        canvasRef.current.dataset.rushing = 'true'
+        // We need the clock time but we can't access it easily outside. 
+        // We'll trust the loop to start rushing from 'now' relative to when it reads this.
+        // Actually, the loop uses 'elapsed' from a clock that started on mount.
+        // We can just set a flag and let the loop reset a "rush timer". 
+        // A simple way is to store the time in dataset too, or just use performance.now() / 1000 inside loop if we adapted it.
+        // But since we use THREE.Clock inside, let's use a small hack by not checking start time rigidly, 
+        // just enabling the mode. The loop logic above checks (elapsed - rushStartTime < 2).
+        // We need to provide rushStartTime.
+        // Since we can't get the internal clock time easily without context or ref, 
+        // we'll just use 0 is not sufficient if elapsed is large.
+        // Let's modify the loop to read a start timestamp from dataset if set. 
+        // Wait, the loop defines `elapsed` from the internal clock. 
+        // To sync, we'll try to just set rushing=true and handle duration differently or capture the clock instance in a ref.
+        // SIMPLIFICATION: I'll use a Ref for the clock to set the start time correctly.
+    }
+  }
+  
+  // Need to pass the clock time to the dataset on click? 
+  // No, better to manage the 'rush' start in the loop by checking a simple "trigger" bool ref.
+  
+  return (
+    <div className="splash-overlay-webgl">
+      <canvas ref={canvasRef} id="webgl-bg" />
+      <div className="center-glow"></div>
+      <div className={`splash-content ${hidden ? 'hidden' : ''}`}>
+        <h1 className="splash-title-webgl">Juan Torales</h1>
+        <p className="splash-sub-webgl">Desarrollador de Software Multiplataforma</p>
+        <button 
+            className="splash-btn-webgl" 
+            onClick={() => {
+                 setHidden(true)
+                 if(canvasRef.current) {
+                     canvasRef.current.dataset.rushing = 'true' 
+                     // Pass a timestamp close enough? 
+                     // The loop uses clock.getElapsedTime(). 
+                     // We can't know that value here without exposing the clock.
+                     // Alternative: Re-implement loop to use performance.now() or 
+                     // just set a flag "startRushNow" and let the loop grab the time then.
+                     canvasRef.current.dataset.triggerRush = 'true'
+                 }
+                 setTimeout(onEnter, 2000)
+            }}>
+            Ver Portafolio
+        </button>
+      </div>
+    </div>
+  )
+}
+// Fix for the loop logic above regarding time:
+// I need the loop to update `rushStartTime` when it sees `dataset.triggerRush`.
+/* 
+   Inside animateParticles:
+   if (canvas.dataset.triggerRush === 'true' && !rushMode) {
+      rushMode = true;
+      rushStartTime = elapsed;
+   }
+   if (rushMode && elapsed - rushStartTime < 2) { ... }
+*/
 
 /* ——— Animated Section ——— */
 function AnimatedSection({ children, className, id, delay = 0 }) {
@@ -164,6 +409,7 @@ function CursorSpotlight() {
    ======================================== */
 export default function App() {
   const [light, setLight] = useState(false)
+  const [showSplash, setShowSplash] = useState(true)
   const cvRef = useRef(null)
 
   const { scrollYProgress } = useScroll()
@@ -244,6 +490,7 @@ export default function App() {
 
   return (
     <div className={`app ${light ? 'light' : 'dark'}`}>
+      {showSplash && <SplashOverlay onEnter={() => setShowSplash(false)} />}
       <Toaster position="bottom-right" toastOptions={{
         style: {
           background: light ? '#fff' : '#1e293b',
@@ -267,7 +514,7 @@ export default function App() {
       >
         <div className="navbar-inner">
           <a href="#" className="nav-brand">
-            <div className="nav-brand-text">Portafolio Web:</div>
+            <div className="nav-brand-text">Portafolio Web</div>
           </a>
           <ul className="nav-links">
             <li><a href="#about">Sobre mí</a></li>
@@ -438,7 +685,7 @@ export default function App() {
           </AnimatedSection>
 
           <AnimatedSection className="projects-section" id="projects" delay={0.1}>
-            <SectionHeader icon={FolderKanban} title="Proyectos Destacados" />
+            <SectionHeader icon={FolderKanban} title="Proyectos Escolares" />
             <div className="cards-grid">
               {resume.projects.map((p, i) => <ProjectCard key={i} project={p} index={i} />)}
             </div>

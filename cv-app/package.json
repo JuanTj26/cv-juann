@@ -16,7 +16,8 @@
     "lucide-react": "^0.563.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sonner": "^2.0.7"
+    "sonner": "^2.0.7",
+    "three": "^0.182.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.1.3",
