@@ -15,18 +15,18 @@ export const resume = {
   skillsAdvanced: [
     { name: 'HTML5 - Estructuración', level: 70 },
     { name: 'CSS3 - Estilos', level: 70 },
-    { name: 'Java - Backend', level: 70 },
-    { name: 'Spring Boot - Framework', level: 65 },
-    { name: 'Angular - Frontend', level: 65 },
-    { name: 'TypeScript - Tipado', level: 65 }
+    { name: 'Java - Backend', level: 45 },
+    { name: 'Spring Boot - Framework', level: 45 },
+    { name: 'Angular - Frontend', level: 50 },
+    { name: 'TypeScript - Tipado', level: 50 }
   ],
   skillsIntermediate: [
-    { name: 'PHP - Backend', level: 50 },
+    { name: 'PHP - Backend', level: 30 },
     { name: 'APIs - Integración', level: 50 },
-    { name: 'JavaScript - Dinamismo', level: 50 }
+    { name: 'JavaScript - Dinamismo', level: 40 }
   ],
   skillsBasic: [
-    { name: 'MongoDB - NoSQL', level: 30 },
+    { name: 'MongoDB - NoSQL', level: 20 },
     { name: 'MySQL - Consultas', level: 30 },
     { name: 'Arduino - IoT', level: 30 },
     { name: 'ESP-32 - Embebidos', level: 30 }
