@@ -41,7 +41,6 @@ export const resume = {
   experience: [
     {
       role: 'Full Stack Developer',
-      company: 'Anáhuac Online / RedSoft Group',
       period: '2025',
       bullets: [
         'Desarrollo de plataforma analítica para visualización y gestión de información financiera.',
@@ -51,7 +50,6 @@ export const resume = {
     },
     {
       role: 'Full Stack Developer',
-      company: 'Anáhuac Online / RedSoft Group',
       period: '2025',
       bullets: [
         'Implementación y modificación de módulos completos de conciliación financiera.',
@@ -62,7 +60,6 @@ export const resume = {
     },
     {
       role: 'Full Stack Developer',
-      company: 'Grupo Educación CDMX / RedSoft Group',
       period: '2025',
       bullets: [
         'Desarrollo de portal de becas y apoyos educativos.',
